@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical SEO Audit | Brightwater Physio (Sample Project)</title>
+<meta name="description" content="Sample technical SEO audit and monthly report by Prosync Solutions, produced with a custom crawler on a fictional physiotherapy clinic website.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f7f9; --paper: #fff; --ink: #18212b; --muted: #5b6673; --line: #e3e7ec;
+  --teal: #0e5e6f; --teal-soft: #e6f1f3;
+  --crit: #b42318; --crit-bg: #fdecea; --high: #b54708; --high-bg: #fef0e1;
+  --med: #8a6a00; --med-bg: #fdf6d8; --low: #475467; --low-bg: #eef1f4; --ok: #067647; --ok-bg: #e7f6ee;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font: 15.5px/1.65 "Inter", system-ui, sans-serif; color: var(--ink); background: var(--bg); }
+.sample-bar { background: var(--ink); color: #dfe5ea; font-size: 13px; text-align: center; padding: 8px 16px; }
+.sample-bar a { color: #9fd3dc; }
+.doc { width: min(940px, 100% - 32px); margin: 32px auto 64px; background: var(--paper); border: 1px solid var(--line); }
+.page { padding: 56px 64px; border-bottom: 1px solid var(--line); }
+.page:last-child { border-bottom: 0; }
+h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; line-height: 1.2; }
+h1 { font-size: 2.4rem; margin: 10px 0 12px; }
+h2 { font-size: 1.65rem; margin-bottom: 14px; }
+h3 { font-size: 1.15rem; margin: 26px 0 8px; }
+p { margin-bottom: 12px; }
+.muted { color: var(--muted); }
+.kicker { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--teal); font-weight: 600; }
+.cover { background: linear-gradient(135deg, var(--teal) 0%, #0b4653 100%); color: #fff; }
+.cover .kicker { color: #9fd3dc; }
+.cover dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.25); font-size: 14px; }
+.cover dt { color: #9fd3dc; font-size: 12px; text-transform: uppercase; letter-spacing: .1em; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 26px; }
+.stat { border: 1px solid var(--line); padding: 14px 16px; }
+.stat strong { display: block; font-size: 1.75rem; font-weight: 700; line-height: 1.2; }
+.stat span { font-size: 13px; color: var(--muted); }
+.stat.crit strong { color: var(--crit); } .stat.high strong { color: var(--high); }
+.callout { background: var(--teal-soft); border-left: 4px solid var(--teal); padding: 16px 20px; margin: 18px 0; }
+.callout ol { margin-left: 20px; } .callout li { margin-bottom: 6px; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 14px 0; }
+th, td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 600; background: #fafbfc; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tag { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+.crit-t { color: var(--crit); background: var(--crit-bg); } .high-t { color: var(--high); background: var(--high-bg); }
+.med-t { color: var(--med); background: var(--med-bg); } .low-t { color: var(--low); background: var(--low-bg); }
+.ok-t { color: var(--ok); background: var(--ok-bg); }
+.finding { border: 1px solid var(--line); padding: 20px 22px; margin: 16px 0; break-inside: avoid; }
+.finding header { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.finding h3 { margin: 0; }
+.finding dl { display: grid; grid-template-columns: 130px 1fr; gap: 8px 16px; margin-top: 14px; font-size: 14.5px; }
+.finding dt { color: var(--muted); font-weight: 500; }
+code { font: 13px ui-monospace, Consolas, monospace; background: #f1f3f6; padding: 1px 5px; border-radius: 3px; word-break: break-all; }
+pre { font: 13px/1.5 ui-monospace, Consolas, monospace; background: #f1f3f6; padding: 12px 14px; overflow-x: auto; margin: 8px 0; }
+.plan { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+.plan > div { border-top: 3px solid var(--teal); background: #fafbfc; padding: 16px 18px; }
+.plan h3 { margin-top: 0; }
+.plan ul { margin-left: 18px; font-size: 14.5px; }
+.monthly { border: 2px solid var(--teal); padding: 28px 30px; }
+.monthly .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 16px 0 20px; }
+.kpi { background: #fafbfc; padding: 12px 14px; }
+.kpi strong { font-size: 1.45rem; display: block; }
+.kpi .up { color: var(--ok); font-size: 13px; font-weight: 600; } .kpi .down { color: var(--crit); font-size: 13px; font-weight: 600; }
+.cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; font-size: 14.5px; }
+.cols ul { margin-left: 18px; }
+.illustrative { font-size: 12.5px; background: var(--med-bg); color: #6b5300; padding: 6px 10px; display: inline-block; margin-bottom: 8px; }
+ul.plain { margin-left: 20px; } ul.plain li { margin-bottom: 4px; }
+.toc { columns: 2; font-size: 14.5px; margin-left: 20px; }
+a { color: var(--teal); }
+@media (max-width: 760px) {
+  .page { padding: 32px 20px; }
+  .stats, .monthly .kpis { grid-template-columns: 1fr 1fr; }
+  .cover dl, .plan, .cols { grid-template-columns: 1fr; }
+  .finding dl { grid-template-columns: 1fr; gap: 2px; }
+  .finding dd { margin-bottom: 8px; }
+  .toc { columns: 1; }
+  .table-wrap { overflow-x: auto; }
+  table { min-width: 620px; }
+}
+@media print {
+  body { background: #fff; } .sample-bar { display: none; }
+  .doc { border: 0; margin: 0; width: 100%; }
+  .page { page-break-after: always; padding: 28px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="sample-bar">Sample project by <a href="../../">Prosync Solutions</a>. Brightwater Physio is a fictional clinic; the site was built for this demo and audited with a real crawler.</div>
+
+<article class="doc">
+
+  <section class="page cover">
+    <span class="kicker">Technical SEO audit</span>
+    <h1>Brightwater Physio</h1>
+    <p style="font-size:1.1rem;max-width:560px;opacity:.92">What is holding the site back in search, what to fix first, and how progress will be reported each month.</p>
+    <dl>
+      <div><dt>Prepared by</dt><dd>Brandon, Prosync Solutions</dd></div>
+      <div><dt>Site</dt><dd>brightwaterphysio.example (9 pages)</dd></div>
+      <div><dt>Crawl date</dt><dd>7 October 2026</dd></div>
+    </dl>
+  </section>
+
+  <section class="page">
+    <span class="kicker">1 · Summary</span>
+    <h2>The short version</h2>
+    <p>The site has good bones: clear service pages, a sensible menu, and every page loads. But a few configuration mistakes are hiding some of its most valuable pages from Google, and that matters far more than any amount of new content.</p>
+    <div class="stats">
+      <div class="stat"><strong>11</strong><span>URLs checked</span></div>
+      <div class="stat crit"><strong>2</strong><span>critical issues</span></div>
+      <div class="stat high"><strong>5</strong><span>high-priority issues</span></div>
+      <div class="stat"><strong>19</strong><span>issue types found</span></div>
+    </div>
+    <div class="callout">
+      <strong>Fix these three first (about 1 hour of work):</strong>
+      <ol>
+        <li><strong>The whole blog is blocked from Google.</strong> One line in <code>robots.txt</code> tells search engines not to crawl <code>/blog/</code>.</li>
+        <li><strong>The Services page tells Google it's a copy of the home page.</strong> Its canonical tag points to <code>/</code>, so Google is likely to drop it from results.</li>
+        <li><strong>The Prices page is hidden twice over.</strong> It is set to <code>noindex</code> and no page links to it. Price pages attract people who are ready to book.</li>
+      </ol>
+    </div>
+    <h3>What's inside</h3>
+    <ol class="toc">
+      <li>Summary</li><li>Priority list</li><li>Detailed findings</li><li>Judgment calls</li>
+      <li>30 / 60 / 90-day plan</li><li>Sample monthly report</li><li>Method &amp; limits</li>
+    </ol>
+  </section>
+
+  <section class="page">
+    <span class="kicker">2 · Priority list</span>
+    <h2>Biggest gain for least effort, first</h2>
+    <p class="muted">Severity reflects likely impact on visibility and bookings. Effort is the estimated time to fix on a typical small-business site.</p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>#</th><th>Issue</th><th>Pages</th><th>Severity</th><th>Effort</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>robots.txt blocks the entire blog</td><td class="num">2</td><td><span class="tag crit-t">Critical</span></td><td>5 min</td></tr>
+        <tr><td>2</td><td>Services page canonical points to the home page</td><td class="num">1</td><td><span class="tag crit-t">Critical</span></td><td>5 min</td></tr>
+        <tr><td>3</td><td>Prices page set to noindex, listed in sitemap, and orphaned</td><td class="num">1</td><td><span class="tag high-t">High</span></td><td>10 min</td></tr>
+        <tr><td>4</td><td>Contact page has no mobile viewport tag</td><td class="num">1</td><td><span class="tag high-t">High</span></td><td>2 min</td></tr>
+        <tr><td>5</td><td>Duplicate title and description on Services and About</td><td class="num">2</td><td><span class="tag high-t">High</span></td><td>15 min</td></tr>
+        <tr><td>6</td><td>Home page has no meta description, and its title is 95 characters</td><td class="num">1</td><td><span class="tag high-t">High</span></td><td>10 min</td></tr>
+        <tr><td>7</td><td>1.8 MB hero image on the home page</td><td class="num">1</td><td><span class="tag high-t">High</span></td><td>15 min</td></tr>
+        <tr><td>8</td><td>Broken links: <code>/team.html</code> (404), sitemap lists <code>/old-offers.html</code> (404)</td><td class="num">2</td><td><span class="tag med-t">Medium</span></td><td>10 min</td></tr>
+        <tr><td>9</td><td>Sports injury page is 67 words, has no description, and a broken image</td><td class="num">1</td><td><span class="tag med-t">Medium</span></td><td>2–3 hrs</td></tr>
+        <tr><td>10</td><td>Contact page has no H1 heading</td><td class="num">1</td><td><span class="tag med-t">Medium</span></td><td>2 min</td></tr>
+        <tr><td>11</td><td>Service pages too short to fully answer patient questions</td><td class="num">3</td><td><span class="tag med-t">Medium</span></td><td>Ongoing</td></tr>
+        <tr><td>12</td><td>Images missing alt text</td><td class="num">2</td><td><span class="tag med-t">Medium</span></td><td>10 min</td></tr>
+        <tr><td>13</td><td>Contact page missing <code>lang</code> attribute</td><td class="num">1</td><td><span class="tag low-t">Low</span></td><td>1 min</td></tr>
+        <tr><td>14</td><td>Two titles at 61 characters</td><td class="num">2</td><td><span class="tag low-t">Low</span></td><td>5 min</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="muted">Items 1–7 total roughly 1 hour and remove every critical and high-priority problem.</p>
+  </section>
+
+  <section class="page">
+    <span class="kicker">3 · Detailed findings</span>
+    <h2>What's wrong, why it matters, and the fix</h2>
+
+    <div class="finding">
+      <header><h3>1. The blog is blocked from search engines</h3><span class="tag crit-t">Critical</span></header>
+      <dl>
+        <dt>Evidence</dt><dd><code>robots.txt</code> contains <code>Disallow: /blog/</code>. Affected: <code>/blog/</code> and <code>/blog/desk-stretches.html</code>. The article is also missing from <code>sitemap.xml</code>.</dd>
+        <dt>Why it matters</dt><dd>Blog posts like “5 desk stretches for office workers” are how a local clinic gets found by people who aren't searching for a physio yet. Right now Google is told not to read any of them.</dd>
+        <dt>Fix</dt><dd>Delete the <code>Disallow: /blog/</code> line, add every blog post to the sitemap, then request indexing in Google Search Console.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>2. Services page canonical points to the home page</h3><span class="tag crit-t">Critical</span></header>
+      <dl>
+        <dt>Evidence</dt><dd><code>/services.html</code> has <code>&lt;link rel="canonical" href="/"&gt;</code>.</dd>
+        <dt>Why it matters</dt><dd>A canonical tag says “this page is a copy; rank the other one instead.” Google treats it as a strong hint, so the Services page, one of the site's main money pages, is likely to be left out of results.</dd>
+        <dt>Fix</dt><dd>Change it to a self-referencing canonical: <code>&lt;link rel="canonical" href="https://www.brightwaterphysio.example/services.html"&gt;</code>. Usually caused by a theme or plugin template copying the home page's settings, so check other templates too.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>3. Prices page is hidden from Google and from visitors</h3><span class="tag high-t">High</span></header>
+      <dl>
+        <dt>Evidence</dt><dd><code>/pricing.html</code> has <code>&lt;meta name="robots" content="noindex"&gt;</code>, is listed in the sitemap, and has 0 internal links pointing to it.</dd>
+        <dt>Why it matters</dt><dd>Searches like “physio prices Bristol” come from people close to booking. The sitemap asks Google to index the page while the page itself says don't, which sends mixed signals. Visitors can't find it either, because nothing on the site links to it.</dd>
+        <dt>Fix</dt><dd>Remove the noindex tag (likely left over from before launch), and link to Prices from the main menu and from each service page.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>4. Contact page isn't set up for mobile</h3><span class="tag high-t">High</span></header>
+      <dl>
+        <dt>Evidence</dt><dd><code>/contact.html</code> has no <code>&lt;meta name="viewport"&gt;</code> tag.</dd>
+        <dt>Why it matters</dt><dd>Phones render the page at desktop width and shrink it, so text is tiny and the phone number is hard to tap. Google ranks based on the mobile version of pages, and this is the page where bookings happen.</dd>
+        <dt>Fix</dt><dd>Add <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code> to the page template.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>5. Services and About share the same title and description</h3><span class="tag high-t">High</span></header>
+      <dl>
+        <dt>Evidence</dt><dd>Both pages are titled <code>Brightwater Physio</code> with an identical meta description.</dd>
+        <dt>Why it matters</dt><dd>The title is the blue link people click in search results and one of the strongest clues to what a page is about. A bare business name wastes that on both pages and gives searchers no reason to click.</dd>
+        <dt>Fix</dt><dd>Services: <em>Physio &amp; Sports Massage Services in Bristol | Brightwater</em> (57 chars). About: <em>About Our Chartered Physiotherapists | Brightwater Physio</em> (57 chars). Write a unique description for each.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>6. Home page title too long, no description</h3><span class="tag high-t">High</span></header>
+      <dl>
+        <dt>Evidence</dt><dd>Title is 95 characters: <code>Brightwater Physio | Physiotherapy, Sports Massage and Rehab Clinic in Bristol, UK - Book Today</code>. No meta description.</dd>
+        <dt>Why it matters</dt><dd>Google cuts titles off at roughly 580 pixels (about 55–60 characters), so the end gets lost. Without a description, Google builds the snippet from page text it judges relevant. It often rewrites descriptions anyway, but a good one gives you a say in the first message searchers read.</dd>
+        <dt>Fix</dt><dd>Title: <em>Physiotherapy Clinic in Bristol | Brightwater Physio</em> (52 chars). Description (about 150 chars) covering what you treat, where, and how to book.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>7. Broken links</h3><span class="tag med-t">Medium</span></header>
+      <dl>
+        <dt>Evidence</dt><dd><code>/about.html</code> links to <code>/team.html</code>, which returns 404. The sitemap lists <code>/old-offers.html</code>, which returns 404.</dd>
+        <dt>Why it matters</dt><dd>The broken Team link is a dead end on a page people visit to decide whether to trust you. The sitemap error won't hurt rankings (Google just drops the dead URL), but it clutters Search Console's reports so real problems are harder to spot.</dd>
+        <dt>Fix</dt><dd>Either build the Team page (good for trust) or remove the link. Remove <code>/old-offers.html</code> from the sitemap, or redirect it (301) to Prices if it ever had backlinks.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>8. 1.8 MB hero image</h3><span class="tag high-t">High</span></header>
+      <dl>
+        <dt>Evidence</dt><dd><code>/img/clinic-hero.png</code> is 1,820 KB, saved as PNG at 1800×900, with no alt text.</dd>
+        <dt>Why it matters</dt><dd>It's the first thing that loads. On a mobile connection it can add seconds before the page looks ready, which hurts Core Web Vitals (LCP) and bookings.</dd>
+        <dt>Fix</dt><dd>Export as AVIF or WebP at about 1600px wide (target: under 200 KB), add <code>srcset</code> for phones, and add descriptive alt text.</dd>
+      </dl>
+    </div>
+
+    <div class="finding">
+      <header><h3>9–14. Content and markup clean-up</h3><span class="tag med-t">Medium / Low</span></header>
+      <dl>
+        <dt>Thin pages</dt><dd><code>/sports-injury.html</code> has 67 words, no description and a broken image (<code>/img/knee-taping.jpg</code>, 404). <code>/back-pain.html</code> (266) and <code>/services.html</code> (209) cover the basics but don't answer common questions about cost, number of sessions or insurance.</dd>
+        <dt>Headings</dt><dd>Contact has no H1; change “Get in touch” to an H1 so the page has a clear main heading for visitors and screen readers.</dd>
+        <dt>Accessibility</dt><dd>Images missing alt text on <code>/</code> and <code>/about.html</code>; <code>/contact.html</code> missing <code>lang="en-GB"</code>.</dd>
+        <dt>Fix</dt><dd>Grow each service page to answer the 5–6 questions patients actually ask (taken from Search Console queries and front-desk calls), with an FAQ section.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="page">
+    <span class="kicker">4 · Judgment calls</span>
+    <h2>Things the tools flagged that I'm <em>not</em> prioritising</h2>
+    <p>Crawlers flag anything outside a rule of thumb. Part of an audit is saying which warnings don't matter, so your hours go where they count.</p>
+    <ul class="plain">
+      <li><strong>Two H1 headings on the home page.</strong> Google has said for years that multiple H1s are fine. I'd tidy it during the redesign of that section, but it won't change rankings.</li>
+      <li><strong>Back pain and Contact titles at 61 characters.</strong> Google truncates by pixel width, not character count. These are borderline, not broken. Low priority.</li>
+      <li><strong>Word count on Contact (84), Blog index (39) and Prices (120).</strong> These pages aren't meant to be long. Word count isn't a ranking factor by itself; what matters is whether the page answers the searcher. Only the service pages are flagged as thin.</li>
+      <li><strong>Server response time.</strong> The crawl ran against a local test server, so speed numbers from this crawl don't reflect real hosting. In a live engagement, speed is measured with PageSpeed Insights and Search Console's Core Web Vitals report, which use real-visitor data.</li>
+    </ul>
+  </section>
+
+  <section class="page">
+    <span class="kicker">5 · Plan</span>
+    <h2>30 / 60 / 90 days</h2>
+    <div class="plan">
+      <div>
+        <h3>Days 1–30: Fix &amp; measure</h3>
+        <ul>
+          <li>Items 1–8 from the priority list</li>
+          <li>Verify Google Search Console &amp; GA4, and submit a clean sitemap</li>
+          <li>Record a baseline: clicks, impressions, indexed pages, Core Web Vitals</li>
+          <li>Google Business Profile check: categories, hours, photos, phone matching the site</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Days 31–60: Content</h3>
+        <ul>
+          <li>Keyword research from Search Console queries and local competitors</li>
+          <li>Rebuild Sports injury, Back pain and Services pages around real patient questions</li>
+          <li>Add FAQs, internal links to Prices and Contact</li>
+          <li>Two blog posts targeting questions people already search for</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Days 61–90: Authority</h3>
+        <ul>
+          <li>Local citations: NHS-adjacent and health directories, Bristol business listings</li>
+          <li>Outreach to local running clubs, gyms and employers (sponsorships, guest advice pieces)</li>
+          <li>Review request process after discharge</li>
+          <li>Re-crawl and compare against the baseline</li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:16px">No promise of a specific traffic number: nobody can honestly guarantee rankings. Every hour is tied to a specific task you'll see in the monthly report.</p>
+  </section>
+
+  <section class="page">
+    <span class="kicker">6 · Sample monthly report</span>
+    <h2>What you'd receive each month</h2>
+    <div class="illustrative">Illustrative figures to show the format. This fictional site has no real analytics data.</div>
+    <div class="monthly">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <strong style="font-size:1.1rem">Brightwater Physio · SEO report · Month 2</strong>
+        <span class="muted">Source: Google Search Console, GA4</span>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><span class="muted" style="font-size:13px">Organic clicks</span><strong>412</strong><span class="up">▲ 18% vs last month</span></div>
+        <div class="kpi"><span class="muted" style="font-size:13px">Impressions</span><strong>9,870</strong><span class="up">▲ 31%</span></div>
+        <div class="kpi"><span class="muted" style="font-size:13px">Booking-page visits</span><strong>63</strong><span class="up">▲ 9%</span></div>
+        <div class="kpi"><span class="muted" style="font-size:13px">Indexed pages</span><strong>11</strong><span class="up">▲ from 7</span></div>
+      </div>
+      <div class="cols">
+        <div><strong>What moved</strong><ul><li>Blog unblocked; “desk stretches” now indexed</li><li>Services page back in results for “physio Bristol”</li><li>Avg. position for “sports massage Bristol”: 18 → 11</li></ul></div>
+        <div><strong>What was done</strong><ul><li>All 8 critical/high fixes shipped</li><li>Sports injury page rewritten (67 → 720 words, FAQ added)</li><li>Hero image 1.8 MB → 160 KB</li></ul></div>
+        <div><strong>Next month</strong><ul><li>Rewrite Back pain page</li><li>2 blog posts from top search queries</li><li>Start local club outreach (5 contacts)</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page">
+    <span class="kicker">7 · Method &amp; limits</span>
+    <h2>How this audit was produced</h2>
+    <p>The site was crawled with a custom Python crawler (<a href="../seo_crawler.py">seo_crawler.py</a>, standard library only) that follows every internal link from the home page, reads <code>robots.txt</code> and <code>sitemap.xml</code>, then runs these checks:</p>
+    <p class="muted" style="font-size:14px">Status codes · broken internal links &amp; images · robots.txt blocking · sitemap errors &amp; gaps · noindex conflicts · orphan pages · canonical tags · titles (missing, long, duplicate) · meta descriptions (missing, length, duplicate) · H1 structure · word count · image alt text &amp; weight · viewport · language attribute</p>
+    <p>Raw output: <a href="../results/pages.csv">pages.csv</a> (one row per URL) and <a href="../results/findings.json">findings.json</a>. The crawler was tested against a list of 19 deliberately planted problems and detected all 19.</p>
+    <h3>Not covered by a crawl</h3>
+    <ul class="plain">
+      <li>Real-visitor speed (Core Web Vitals field data): from PageSpeed Insights / Search Console</li>
+      <li>Backlinks and competitor gaps: from Search Console links report and a backlink tool</li>
+      <li>Actual search queries and rankings: from Search Console once access is granted</li>
+      <li>JavaScript-rendered content: this crawler reads the HTML as served</li>
+    </ul>
+  </section>
+
+</article>
+</body>
+</html>

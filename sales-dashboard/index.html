@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sales Dashboard | Sample</title>
+<!-- Sample project: fictional sales data generated in the page. No external libraries. -->
+<style>
+  :root{--bg:#f4f5f7;--card:#fff;--ink:#16202b;--muted:#647183;--line:#e4e8ed;--blue:#2563a8;--blue-soft:#dbe7f5;--good:#1f7a45;--bad:#b3352b;
+        --sans:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.45}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 20px 40px}
+  h1{font-size:1.5rem;margin:0}
+  .sub{color:var(--muted);font-size:.9rem;margin:2px 0 18px}
+  .filters{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+  .group{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .group span{font-size:.8rem;color:var(--muted);margin-right:2px}
+  .chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 14px;font:inherit;font-size:.88rem;cursor:pointer;color:var(--ink)}
+  .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .kpi .lab{font-size:.8rem;color:var(--muted)}
+  .kpi .val{font-size:1.8rem;font-weight:700;letter-spacing:-.02em;margin:2px 0}
+  .delta{font-size:.82rem;font-weight:600}
+  .up{color:var(--good)}.down{color:var(--bad)}
+  .delta small{color:var(--muted);font-weight:400}
+  .row{display:grid;grid-template-columns:1.6fr 1fr;gap:14px;margin-bottom:14px}
+  .card h2{font-size:1rem;margin:0}
+  .card .note{font-size:.8rem;color:var(--muted);margin:2px 0 8px}
+  svg{display:block;width:100%;height:auto;overflow:visible}
+  .axis text{fill:var(--muted);font-size:11px}
+  .grid line{stroke:var(--line)}
+  .chartbox{position:relative}
+  .tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;border-radius:6px;padding:6px 10px;font-size:.8rem;white-space:nowrap;opacity:0;transform:translate(-50%,-110%);transition:opacity .1s}
+  .bar-row{display:grid;grid-template-columns:120px 1fr 70px;gap:10px;align-items:center;padding:7px 0;font-size:.9rem;border-radius:6px}
+  .bar-row:hover{background:#f6f8fa}
+  .track{height:14px}
+  .bar{height:100%;background:var(--blue);border-radius:0 4px 4px 0;transition:width .3s}
+  .bar-row .v{text-align:right;font-variant-numeric:tabular-nums}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  th{text-align:left;color:var(--muted);font-weight:600;font-size:.78rem;padding:8px 8px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none;white-space:nowrap}
+  th.num,td.num{text-align:right;font-variant-numeric:tabular-nums}
+  td{padding:8px;border-bottom:1px solid var(--line)}
+  th[aria-sort]:after{content:" \25BE"} th[aria-sort="ascending"]:after{content:" \25B4"}
+  .scroll{overflow-x:auto}
+  .foot{color:var(--muted);font-size:.8rem;margin-top:16px}
+  @media (max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sales Dashboard</h1>
+  <div class="sub">Northwind Home Goods (fictional) &middot; Jan to Dec 2026 &middot; sample data</div>
+
+  <div class="filters">
+    <div class="group" id="regions" role="group" aria-label="Region"><span>Region</span></div>
+    <div class="group" id="periods" role="group" aria-label="Period"><span>Period</span></div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="row">
+    <div class="card"><h2>Monthly revenue</h2><div class="note" id="lineNote"></div>
+      <div class="chartbox" id="lineBox"><svg id="line" viewBox="0 0 680 260" role="img" aria-label="Monthly revenue line chart"></svg><div class="tip" id="tip"></div></div></div>
+    <div class="card"><h2>Revenue by category</h2><div class="note">Share of selected period</div><div id="bars"></div></div>
+  </div>
+
+  <div class="card"><h2>Top products</h2><div class="note">Click a column heading to sort</div>
+    <div class="scroll"><table><thead><tr>
+      <th data-k="name">Product</th><th data-k="cat">Category</th><th class="num" data-k="units">Units</th><th class="num" data-k="rev" aria-sort="descending">Revenue</th><th class="num" data-k="aov">Avg price</th>
+    </tr></thead><tbody id="rows"></tbody></table></div></div>
+
+  <div class="foot">Sample dashboard by Prosync Solutions. All figures are generated demo data. In a live build this connects to a spreadsheet, database or store export.</div>
+</div>
+
+<script>
+// ---------- demo data (seeded so it is the same on every load) ----------
+let seed = 42; const rnd = () => (seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296;
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const REGIONS = ["North","South","East","West"];
+const PRODUCTS = [["Oak Side Table","Furniture",129],["Linen Sofa Throw","Textiles",48],["Ceramic Table Lamp","Lighting",74],["Wool Area Rug","Textiles",189],
+  ["Stoneware Dinner Set","Kitchen",96],["Bamboo Bath Caddy","Bathroom",39],["Brass Floor Lamp","Lighting",142],["Cast Iron Skillet","Kitchen",58],
+  ["Walnut Bookshelf","Furniture",249],["Cotton Bath Towels","Bathroom",34],["Glass Pendant Light","Lighting",88],["Linen Bedding Set","Textiles",134]];
+const SEASON = [.8,.75,.9,.95,1,1.05,.95,.9,1.05,1.15,1.45,1.6];
+const SALES = [];     // one record per product x region x month
+PRODUCTS.forEach(([name, cat, price], pi) => REGIONS.forEach((region, ri) => MONTHS.forEach((_, m) => {
+  const units = Math.round((14 + pi % 5 * 4) * (0.8 + ri * 0.12) * SEASON[m] * (0.75 + rnd() * 0.5) * (1 + m * 0.012));
+  SALES.push({name, cat, price, region, m, units, rev: units * price});
+})));
+
+// ---------- state ----------
+const PERIODS = {"Full year":[0,11], "H1":[0,5], "H2":[6,11], "Q4":[9,11]};
+let region = "All", period = "Full year", sortKey = "rev", sortDir = -1;
+const $ = id => document.getElementById(id);
+const usd = n => "$" + Math.round(n).toLocaleString("en-US"), k = n => "$" + (n / 1000).toFixed(n >= 100000 ? 0 : 1) + "k";
+const sum = (a, f) => a.reduce((s, x) => s + f(x), 0);
+
+function chips(el, items, get, set){
+  items.forEach(v => { const b = document.createElement("button"); b.className = "chip"; b.textContent = v;
+    b.setAttribute("aria-pressed", v === get());
+    b.onclick = () => { set(v); el.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", c === b)); draw(); };
+    el.appendChild(b); });
+}
+chips($("regions"), ["All", ...REGIONS], () => region, v => region = v);
+chips($("periods"), Object.keys(PERIODS), () => period, v => period = v);
+
+// ---------- render ----------
+function draw(){
+  const [a, b] = PERIODS[period];
+  const inRegion = SALES.filter(s => region === "All" || s.region === region);
+  const cur = inRegion.filter(s => s.m >= a && s.m <= b);
+  const len = b - a + 1, prev = inRegion.filter(s => s.m >= a - len && s.m < a);    // previous period of the same length
+  const rev = sum(cur, s => s.rev), units = sum(cur, s => s.units), pRev = sum(prev, s => s.rev), pUnits = sum(prev, s => s.units);
+  const best = MONTHS.map((_, m) => sum(cur.filter(s => s.m === m), s => s.rev));
+  const bestM = best.indexOf(Math.max(...best));
+  const delta = (c, p) => { if (!p) return '<span class="delta"><small>no earlier period to compare</small></span>';
+    const d = (c - p) / p * 100; return `<span class="delta ${d >= 0 ? "up" : "down"}">${d >= 0 ? "▲" : "▼"} ${Math.abs(d).toFixed(1)}% <small>vs previous period</small></span>`; };
+  $("kpis").innerHTML = [
+    ["Revenue", usd(rev), delta(rev, pRev)], ["Units sold", units.toLocaleString("en-US"), delta(units, pUnits)],
+    ["Average selling price", "$" + (rev / units).toFixed(2), delta(rev / units, pUnits ? pRev / pUnits : 0)],
+    ["Best month", MONTHS[bestM], `<span class="delta"><small>${usd(best[bestM])} revenue</small></span>`]
+  ].map(([l, v, d]) => `<div class="card kpi"><div class="lab">${l}</div><div class="val">${v}</div>${d}</div>`).join("");
+
+  drawLine(MONTHS.map((_, m) => sum(inRegion.filter(s => s.m === m), s => s.rev)), a, b);
+  $("lineNote").textContent = `${region === "All" ? "All regions" : region + " region"}. Selected period is shaded.`;
+
+  const cats = [...new Set(SALES.map(s => s.cat))].map(c => ({c, v: sum(cur.filter(s => s.cat === c), s => s.rev)})).sort((x, y) => y.v - x.v);
+  $("bars").innerHTML = cats.map(({c, v}) => `<div class="bar-row" title="${c}: ${usd(v)} (${(v / rev * 100).toFixed(1)}% of revenue)">
+    <span>${c}</span><div class="track"><div class="bar" style="width:${v / cats[0].v * 100}%"></div></div><span class="v">${k(v)}</span></div>`).join("");
+
+  const prods = PRODUCTS.map(([name, cat]) => { const r = cur.filter(s => s.name === name), u = sum(r, s => s.units), v = sum(r, s => s.rev);
+    return {name, cat, units: u, rev: v, aov: v / u}; });
+  prods.sort((x, y) => (typeof x[sortKey] === "string" ? x[sortKey].localeCompare(y[sortKey]) : x[sortKey] - y[sortKey]) * sortDir);
+  $("rows").innerHTML = prods.map(p => `<tr><td>${p.name}</td><td>${p.cat}</td><td class="num">${p.units.toLocaleString("en-US")}</td><td class="num">${usd(p.rev)}</td><td class="num">$${p.aov.toFixed(2)}</td></tr>`).join("");
+}
+
+let pts = [];
+function drawLine(vals, a, b){
+  const W = 680, H = 260, L = 48, R = 14, T = 12, B = 28, max = Math.ceil(Math.max(...vals) / 10000) * 10000 || 1;
+  const x = i => L + i * (W - L - R) / 11, y = v => T + (1 - v / max) * (H - T - B), step = (W - L - R) / 11;
+  pts = vals.map((v, i) => ({x: x(i), y: y(v), v, i}));
+  let h = `<rect x="${x(a) - step / 2}" y="${T}" width="${(b - a + 1) * step}" height="${H - T - B}" fill="#eef3f9"/><g class="grid">`;
+  for (let i = 0; i <= 4; i++){ const v = max * i / 4; h += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}"/>`; }
+  h += '</g><g class="axis">';
+  for (let i = 0; i <= 4; i++){ const v = max * i / 4; h += `<text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v ? "$" + v / 1000 + "k" : "0"}</text>`; }
+  MONTHS.forEach((m, i) => h += `<text x="${x(i)}" y="${H - 8}" text-anchor="middle">${m}</text>`);
+  h += `</g><path d="${pts.map((p, i) => (i ? "L" : "M") + p.x + " " + p.y).join(" ")}" fill="none" stroke="#2563a8" stroke-width="2" stroke-linejoin="round"/>`;
+  h += `<line id="cross" y1="${T}" y2="${H - B}" stroke="#9aa7b6" stroke-dasharray="3 3" opacity="0"/><circle id="dot" r="5" fill="#2563a8" stroke="#fff" stroke-width="2" opacity="0"/>`;
+  $("line").innerHTML = h;
+}
+$("lineBox").addEventListener("mousemove", e => {
+  const svg = $("line"), r = svg.getBoundingClientRect(), sx = (e.clientX - r.left) / r.width * 680;
+  const p = pts.reduce((best, q) => Math.abs(q.x - sx) < Math.abs(best.x - sx) ? q : best);
+  const c = svg.querySelector("#cross"), d = svg.querySelector("#dot"), tip = $("tip");
+  c.setAttribute("x1", p.x); c.setAttribute("x2", p.x); c.setAttribute("opacity", 1);
+  d.setAttribute("cx", p.x); d.setAttribute("cy", p.y); d.setAttribute("opacity", 1);
+  tip.textContent = `${MONTHS[p.i]}: ${usd(p.v)}`; tip.style.left = p.x / 680 * r.width + "px"; tip.style.top = p.y / 260 * r.height + "px"; tip.style.opacity = 1;
+});
+$("lineBox").addEventListener("mouseleave", () => { $("tip").style.opacity = 0; ["#cross", "#dot"].forEach(s => $("line").querySelector(s).setAttribute("opacity", 0)); });
+
+document.querySelectorAll("th").forEach(th => th.onclick = () => {
+  const key = th.dataset.k; sortDir = key === sortKey ? -sortDir : (key === "name" || key === "cat" ? 1 : -1); sortKey = key;
+  document.querySelectorAll("th").forEach(t => t.removeAttribute("aria-sort"));
+  th.setAttribute("aria-sort", sortDir === 1 ? "ascending" : "descending"); draw();
+});
+draw();
+</script>
+</body>
+</html>

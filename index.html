@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prosync Solutions | Sample Portfolio</title>
+<meta name="description" content="Sample projects by Prosync Solutions: websites, data cleaning and Excel automation, SEO audits and content, REST APIs and support documentation.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Prosync Solutions | Sample Portfolio">
+<meta property="og:description" content="Websites, data and Excel automation, SEO audits, APIs and content: 17 sample projects with live demos.">
+<meta property="og:image" content="https://prosyncsolutions.github.io/img/16_cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #f5f6f8; --card: #fff; --ink: #141a22; --muted: #5d6875; --line: #e2e6eb; --accent: #1f5eff; --accent-soft: #e8efff; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font: 15.5px/1.6 "Inter", system-ui, sans-serif; color: var(--ink); background: var(--bg); }
+a { color: var(--accent); }
+.wrap { width: min(1180px, 100% - 32px); margin-inline: auto; }
+header.top { background: var(--ink); color: #fff; padding: 56px 0 48px; }
+.brand { font-weight: 700; letter-spacing: .02em; font-size: 15px; color: #9db8ff; text-transform: uppercase; }
+h1 { font-size: clamp(2rem, 4.4vw, 3rem); line-height: 1.12; margin: 12px 0 14px; max-width: 760px; }
+.lead { color: #c5cdd8; max-width: 640px; font-size: 17px; }
+.note { margin-top: 22px; font-size: 13.5px; color: #aab4c0; border-left: 3px solid #9db8ff; padding-left: 12px; max-width: 640px; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 32px 0 24px; }
+.filters button { border: 1px solid var(--line); background: var(--card); padding: 8px 16px; border-radius: 20px; font: 500 14px "Inter", sans-serif; cursor: pointer; color: var(--ink); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 64px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+.card[hidden] { display: none; }
+.card img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-bottom: 1px solid var(--line); background: #e9edf1; }
+.card .body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card h2 { font-size: 1.08rem; line-height: 1.3; }
+.card p { color: var(--muted); font-size: 14.5px; flex: 1; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tags span { font-size: 12px; background: #f0f2f5; color: #3d4753; padding: 2px 8px; border-radius: 4px; }
+.badge { position: absolute; top: 12px; left: 12px; background: #fff; color: #067647; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+.media { position: relative; }
+.links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.links a { font-size: 13.5px; font-weight: 600; text-decoration: none; padding: 7px 12px; border-radius: 6px; border: 1px solid var(--line); color: var(--ink); }
+.links a.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.links a:hover { border-color: var(--accent); }
+.links a.primary:hover { background: #1749cc; }
+footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+@media (max-width: 980px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } header.top { padding: 40px 0 36px; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">Prosync Solutions</div>
+    <h1>Websites, data automation and SEO, built carefully and tested before delivery.</h1>
+    <p class="lead">Below are sample projects showing how I work. Live demos open in your browser; reports and spreadsheets open or download directly.</p>
+    <p class="note">These are sample projects. The companies and data in them are fictional, built to demonstrate skills; they are not past client work.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="filters" role="group" aria-label="Filter by type">
+    <button type="button" data-filter="all" aria-pressed="true">All (17)</button>
+    <button type="button" data-filter="web" aria-pressed="false">Websites</button>
+    <button type="button" data-filter="data" aria-pressed="false">Data &amp; Excel</button>
+    <button type="button" data-filter="seo" aria-pressed="false">SEO &amp; content</button>
+    <button type="button" data-filter="code" aria-pressed="false">Automation &amp; code</button>
+    <button type="button" data-filter="ops" aria-pressed="false">Support &amp; operations</button>
+  </div>
+
+  <div class="grid" id="grid">
+    <article class="card" data-cat="web">
+      <div class="media"><img src="img/16_cover.jpg" alt="Velluto Events website cover" loading="lazy"><span class="badge">Live demo</span></div>
+      <div class="body">
+        <h2>Event Design Website with Gallery</h2>
+        <p>Elegant site for an event studio: filterable photo gallery with full-screen viewer, services with starting prices, process, rotating testimonials and a validated inquiry form. Tested on phone, tablet and desktop.</p>
+        <div class="tags"><span>HTML/CSS/JS</span><span>Responsive</span><span>Accessibility</span></div>
+        <div class="links"><a class="primary" href="event-design/">View live site</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="seo">
+      <div class="media"><img src="img/17_cover.jpg" alt="Technical SEO audit cover" loading="lazy"><span class="badge">Live report</span></div>
+      <div class="body">
+        <h2>Technical SEO Audit + Monthly Report</h2>
+        <p>Custom Python crawler run on a 9-page clinic site, then a prioritised audit: evidence, why each issue matters, exact fixes, a 30/60/90-day plan and a sample monthly report.</p>
+        <div class="tags"><span>Technical SEO</span><span>Python</span><span>Reporting</span></div>
+        <div class="links"><a class="primary" href="seo-audit/report/">Read the audit</a><a href="https://github.com/prosyncsolutions/prosyncsolutions.github.io/blob/main/seo-audit/seo_crawler.py">Crawler code</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="web">
+      <div class="media"><img src="img/04_cover.jpg" alt="Restaurant website cover" loading="lazy"><span class="badge">Live demo</span></div>
+      <div class="body">
+        <h2>Restaurant Website with Online Reservations</h2>
+        <p>Single-page restaurant site: tabbed menu, opening hours, and a reservation form that only offers times the restaurant is open and validates every field.</p>
+        <div class="tags"><span>HTML/CSS/JS</span><span>Booking form</span></div>
+        <div class="links"><a class="primary" href="restaurant-website/">View live site</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="web">
+      <div class="media"><img src="img/08_cover.jpg" alt="Clothing store front cover" loading="lazy"><span class="badge">Live demo</span></div>
+      <div class="body">
+        <h2>Clothing Store Front with Cart</h2>
+        <p>Storefront with category filters, sorting, size selection, a slide-out cart with quantity controls, promo codes and a free-shipping progress bar.</p>
+        <div class="tags"><span>Ecommerce</span><span>JavaScript</span></div>
+        <div class="links"><a class="primary" href="clothing-store/">View live site</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="web">
+      <div class="media"><img src="img/12_cover.jpg" alt="Membership website cover" loading="lazy"><span class="badge">Live demo</span></div>
+      <div class="body">
+        <h2>Non-Profit Membership Website</h2>
+        <p>Membership page for a community garden: three tiers with a monthly/yearly toggle, live price summary, validated sign-up form and FAQ.</p>
+        <div class="tags"><span>Landing page</span><span>Forms</span></div>
+        <div class="links"><a class="primary" href="membership-website/">View live site</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="web data">
+      <div class="media"><img src="img/15_cover.jpg" alt="Sales dashboard cover" loading="lazy"><span class="badge">Live demo</span></div>
+      <div class="body">
+        <h2>Interactive Sales Dashboard</h2>
+        <p>Browser dashboard with region and period filters, KPI tiles with change vs the previous period, a monthly revenue chart, category breakdown and a sortable product table.</p>
+        <div class="tags"><span>Data visualisation</span><span>No libraries</span></div>
+        <div class="links"><a class="primary" href="sales-dashboard/">View live dashboard</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="data code">
+      <div class="media"><img src="img/01_cover.jpg" alt="PDF to Excel extraction cover" loading="lazy"></div>
+      <div class="body">
+        <h2>PDF Form to Excel Data Extraction</h2>
+        <p>Python script that reads a folder of PDF forms, cleans names, phones and dates, and writes one formatted workbook. Invalid records are flagged, not guessed.</p>
+        <div class="tags"><span>Python</span><span>PDF</span><span>Excel</span></div>
+        <div class="links"><a class="primary" href="pdf-to-excel/vendor_forms_extracted.xlsx">Output workbook</a><a href="pdf-to-excel/input_pdfs/vendor_form_01.pdf">Sample input PDF</a><a href="https://github.com/prosyncsolutions/prosyncsolutions.github.io/blob/main/pdf-to-excel/extract_to_excel.py">Code</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="data">
+      <div class="media"><img src="img/02_cover.jpg" alt="Purchase data categorization cover" loading="lazy"></div>
+      <div class="body">
+        <h2>Customer Purchase Data Categorization</h2>
+        <p>Messy sales export (mixed formats, inconsistent names, duplicates) cleaned and categorised with an editable rule table and a formula-driven summary. 329 rows in, 320 clean rows out.</p>
+        <div class="tags"><span>Excel</span><span>Data cleaning</span></div>
+        <div class="links"><a class="primary" href="data-categorization/purchase_data_categorized.xlsx">Open workbook</a><a href="img/previews/02_summary_sheet.png">Preview</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="data code">
+      <div class="media"><img src="img/03_cover.jpg" alt="Excel to PDF statements cover" loading="lazy"></div>
+      <div class="body">
+        <h2>Bulk Excel to Branded PDF Statements</h2>
+        <p>One sheet of invoice lines turned into a branded PDF statement per client, with totals and balances, plus an index of every file created.</p>
+        <div class="tags"><span>Python</span><span>PDF automation</span></div>
+        <div class="links"><a class="primary" href="excel-to-pdf-statements/output_pdfs/statement_brightside_dental.pdf">Sample statement</a><a href="excel-to-pdf-statements/invoice_lines.xlsx">Input sheet</a><a href="https://github.com/prosyncsolutions/prosyncsolutions.github.io/blob/main/excel-to-pdf-statements/excel_to_pdfs.py">Code</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="data ops">
+      <div class="media"><img src="img/09_cover.jpg" alt="CRM contact clean-up cover" loading="lazy"></div>
+      <div class="body">
+        <h2>CRM Contact List Clean-up and De-duplication</h2>
+        <p>Contact export standardised, duplicates merged keeping the most complete record, doubtful rows flagged, with a count of every change. 162 rows in, 133 clean contacts out.</p>
+        <div class="tags"><span>Data cleaning</span><span>CRM</span></div>
+        <div class="links"><a class="primary" href="crm-cleanup/contacts_cleaned.xlsx">Open workbook</a><a href="img/previews/09_clean_contacts.png">Preview</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="data seo">
+      <div class="media"><img src="img/11_cover.jpg" alt="Shopify product listings cover" loading="lazy"></div>
+      <div class="body">
+        <h2>Ecommerce Product Listings + Shopify Import</h2>
+        <p>Eight listings written to a style guide with automatic length checks, plus a Shopify-format CSV with variants and SKUs ready to import.</p>
+        <div class="tags"><span>Shopify</span><span>Copywriting</span></div>
+        <div class="links"><a class="primary" href="shopify-listings/product_listings.xlsx">Listings workbook</a><a href="shopify-listings/shopify_import.csv">Import CSV</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="data ops">
+      <div class="media"><img src="img/14_cover.jpg" alt="Social media calendar cover" loading="lazy"></div>
+      <div class="body">
+        <h2>30-Day Social Media Content Calendar</h2>
+        <p>A month of posts across Instagram, TikTok and Facebook: pillar, format, hook, call to action, hashtags and post time, with a status tracker and overview.</p>
+        <div class="tags"><span>Social media</span><span>Planning</span></div>
+        <div class="links"><a class="primary" href="social-calendar/social_content_calendar.xlsx">Open calendar</a><a href="img/previews/14_social_calendar.png">Preview</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="seo">
+      <div class="media"><img src="img/05_cover.jpg" alt="Website copy and SEO refresh cover" loading="lazy"></div>
+      <div class="body">
+        <h2>Website Copy and SEO Refresh</h2>
+        <p>Before-and-after homepage rewrite: new title, description, headings and service copy, with a keyword map and on-page checklist.</p>
+        <div class="tags"><span>Copywriting</span><span>On-page SEO</span></div>
+        <div class="links"><a class="primary" href="seo-copy-refresh/seo_copy_refresh.pdf">Open PDF</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="seo">
+      <div class="media"><img src="img/13_cover.jpg" alt="SEO blog article cover" loading="lazy"></div>
+      <div class="body">
+        <h2>SEO Blog Article with Brief and Notes</h2>
+        <p>800-word guide written to a keyword brief, with title, description, headings, FAQ and a page of SEO notes on placement, links and alt text.</p>
+        <div class="tags"><span>Blog writing</span><span>SEO content</span></div>
+        <div class="links"><a class="primary" href="seo-blog-article/seo_blog_article.pdf">Open PDF</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="seo code">
+      <div class="media"><img src="img/06_cover.jpg" alt="AI prompt pack cover" loading="lazy"></div>
+      <div class="body">
+        <h2>AI Prompt and Content Pack</h2>
+        <p>Five reusable prompts for an ecommerce team (brand voice, product copy, captions, support replies, editing), each with variables, an example output and notes.</p>
+        <div class="tags"><span>Prompt engineering</span><span>AI content</span></div>
+        <div class="links"><a class="primary" href="ai-prompt-pack/ai_prompt_pack.pdf">Open PDF</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="code">
+      <div class="media"><img src="img/07_cover.jpg" alt="REST API with tests cover" loading="lazy"></div>
+      <div class="body">
+        <h2>Login + CRUD REST API with Tests</h2>
+        <p>Mobile-app backend: register, JWT login, and notes CRUD with hashed passwords, per-user isolation, validation, paging and search. 7 passing end-to-end tests.</p>
+        <div class="tags"><span>Python</span><span>Flask</span><span>SQLite</span></div>
+        <div class="links"><a class="primary" href="https://github.com/prosyncsolutions/prosyncsolutions.github.io/tree/main/rest-api">View code</a><a href="img/previews/07_api_tests.png">Test results</a></div>
+      </div>
+    </article>
+
+    <article class="card" data-cat="ops">
+      <div class="media"><img src="img/10_cover.jpg" alt="Support SOP and macros cover" loading="lazy"></div>
+      <div class="body">
+        <h2>Customer Support SOP and Macro Pack</h2>
+        <p>Support playbook for an online store: service levels, ticket workflow, approval limits, six reply templates, tone rules, QA checklist and weekly report outline.</p>
+        <div class="tags"><span>Customer support</span><span>Documentation</span></div>
+        <div class="links"><a class="primary" href="support-sop/support_sop_and_macros.pdf">Open PDF</a></div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Prosync Solutions · Sample portfolio. All companies, people and data in these samples are fictional. Photos in the event sample are public domain (CC0).</div>
+</footer>
+
+<script>
+document.querySelectorAll('.filters button').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach(b => b.setAttribute('aria-pressed', b === btn));
+  const f = btn.dataset.filter;
+  document.querySelectorAll('#grid .card').forEach(c => { c.hidden = f !== 'all' && !c.dataset.cat.split(' ').includes(f); });
+}));
+</script>
+</body>
+</html>

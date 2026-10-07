@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thread &amp; Tide | Everyday clothing, made to last</title>
+<meta name="description" content="Thread & Tide makes everyday clothing in organic cotton and recycled fibres. Free shipping over $75.">
+<!-- Sample project: fictional store, built as a portfolio demo. Product art is inline SVG, no external files. -->
+<style>
+  :root{--ink:#15181c;--bg:#fbfaf7;--card:#fff;--line:#e6e2da;--muted:#6b6f76;--accent:#1f4e5f;--sale:#b8432e;--r:12px;
+        --sans:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.5}
+  button{font:inherit;cursor:pointer;color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+  .bar{background:var(--ink);color:#fff;text-align:center;font-size:.85rem;padding:8px 12px}
+  header{position:sticky;top:0;z-index:10;background:rgba(251,250,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+  .brand{font-weight:800;font-size:1.25rem;letter-spacing:-.02em}
+  .cart-btn{background:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;display:flex;gap:8px;align-items:center}
+  .count{background:var(--accent);color:#fff;border-radius:999px;min-width:22px;height:22px;font-size:.78rem;display:inline-grid;place-items:center;padding:0 6px}
+  .hero{padding:56px 0 36px}
+  .hero h1{font-size:clamp(2rem,5.5vw,3.6rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 12px;max-width:16ch}
+  .hero p{color:var(--muted);max-width:52ch;margin:0;font-size:1.05rem}
+  .tools{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin:8px 0 22px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 16px;font-size:.92rem}
+  .chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  select{font:inherit;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding-bottom:70px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+  .art{aspect-ratio:1/1;display:grid;place-items:center;position:relative}
+  .art svg{width:62%;height:62%}
+  .flag{position:absolute;top:10px;left:10px;background:var(--sale);color:#fff;font-size:.72rem;font-weight:700;border-radius:4px;padding:2px 8px}
+  .flag.new{background:var(--accent)}
+  .info{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .info h3{margin:0;font-size:1rem}
+  .meta{font-size:.84rem;color:var(--muted)}
+  .price b{font-size:1.05rem}.price s{color:var(--muted);margin-left:6px;font-size:.9rem}
+  .sizes{display:flex;gap:6px;flex-wrap:wrap}
+  .size{border:1px solid var(--line);background:#fff;border-radius:6px;min-width:36px;padding:4px 8px;font-size:.82rem}
+  .size[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:#fff}
+  .add{margin-top:auto;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px;font-weight:600}
+  .add:hover{background:#173c49}
+  .hint{font-size:.78rem;color:var(--sale);min-height:1.1em}
+  /* cart drawer */
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--card);transform:translateX(100%);transition:transform .25s;z-index:21;display:flex;flex-direction:column}
+  .open .scrim{opacity:1;pointer-events:auto}.open .drawer{transform:none}
+  .d-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+  .d-head h2{margin:0;font-size:1.15rem}
+  .x{background:none;border:0;font-size:1.5rem;line-height:1}
+  .ship{padding:14px 20px;border-bottom:1px solid var(--line);font-size:.88rem}
+  .track{height:6px;background:#ece8df;border-radius:99px;margin-top:8px;overflow:hidden}
+  .fill{height:100%;background:var(--accent);width:0;transition:width .3s}
+  .lines{flex:1;overflow:auto;padding:6px 20px}
+  .line{display:grid;grid-template-columns:56px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+  .thumb{width:56px;height:56px;border-radius:8px;display:grid;place-items:center}
+  .thumb svg{width:70%;height:70%}
+  .qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;margin-top:6px}
+  .qty button{background:none;border:0;width:28px;height:28px}
+  .qty span{min-width:22px;text-align:center;font-size:.9rem}
+  .rm{background:none;border:0;color:var(--muted);font-size:.8rem;text-decoration:underline;padding:0;margin-left:10px}
+  .empty{color:var(--muted);text-align:center;padding:60px 0}
+  .d-foot{border-top:1px solid var(--line);padding:16px 20px}
+  .row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:.95rem}
+  .row.total{font-weight:700;font-size:1.1rem;margin-top:8px}
+  .promo{display:flex;gap:8px;margin:10px 0}
+  .promo input{flex:1;font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px}
+  .promo button{border:1px solid var(--ink);background:#fff;border-radius:8px;padding:0 14px}
+  .checkout{width:100%;background:var(--ink);color:#fff;border:0;border-radius:8px;padding:13px;font-weight:700;margin-top:6px}
+  .msg{font-size:.82rem;min-height:1.2em;color:var(--accent)}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;transition:transform .25s;z-index:30}
+  .toast.show{transform:translate(-50%,0)}
+  footer{border-top:1px solid var(--line);padding:26px 0;color:var(--muted);font-size:.88rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media (max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media (max-width:720px){.grid{grid-template-columns:repeat(2,1fr);gap:14px}.hero{padding:36px 0 24px}}
+</style>
+</head>
+<body>
+<div class="bar">Free shipping on orders over $75 &middot; Use code WELCOME10 for 10% off</div>
+<header><div class="wrap nav">
+  <div class="brand">Thread &amp; Tide</div>
+  <button class="cart-btn" id="openCart" aria-label="Open cart">Cart <span class="count" id="count">0</span></button>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>Everyday clothing, made to last longer than a season.</h1>
+    <p>Organic cotton and recycled fibres, in colours that go with what you already own.</p>
+  </section>
+  <div class="tools">
+    <div class="chips" id="chips" role="group" aria-label="Filter by category"></div>
+    <label>Sort <select id="sort">
+      <option value="featured">Featured</option><option value="low">Price: low to high</option>
+      <option value="high">Price: high to low</option><option value="name">Name</option></select></label>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer><div class="wrap"><span>&copy; 2026 Thread &amp; Tide (fictional store)</span><span>Demo storefront by Prosync Solutions</span></div></footer>
+
+<div id="cartRoot">
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" aria-label="Shopping cart">
+    <div class="d-head"><h2>Your cart</h2><button class="x" id="closeCart" aria-label="Close cart">&times;</button></div>
+    <div class="ship"><span id="shipMsg"></span><div class="track"><div class="fill" id="fill"></div></div></div>
+    <div class="lines" id="lines"></div>
+    <div class="d-foot">
+      <div class="promo"><input id="code" placeholder="Promo code" aria-label="Promo code"><button id="apply">Apply</button></div>
+      <div class="msg" id="promoMsg"></div>
+      <div class="row"><span>Subtotal</span><span id="sub">$0.00</span></div>
+      <div class="row" id="discRow" hidden><span>Discount</span><span id="disc"></span></div>
+      <div class="row"><span>Shipping</span><span id="shipCost"></span></div>
+      <div class="row total"><span>Total</span><span id="total">$0.00</span></div>
+      <button class="checkout" id="checkout">Checkout</button>
+      <div class="msg" id="coMsg"></div>
+    </div>
+  </aside>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const SHAPES = {
+  tee:    '<path d="M30 12 L42 8 Q50 16 58 8 L70 12 L88 28 L76 40 L68 34 L68 90 L32 90 L32 34 L24 40 L12 28 Z"/>',
+  hoodie: '<path d="M34 14 Q50 0 66 14 L88 30 L80 60 L70 56 L70 92 L30 92 L30 56 L20 60 L12 30 Z"/><path d="M42 16 Q50 30 58 16" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2"/><rect x="40" y="64" width="20" height="14" rx="3" fill="rgba(0,0,0,.15)"/>',
+  pants:  '<path d="M30 8 L70 8 L74 92 L56 92 L50 36 L44 92 L26 92 Z"/>',
+  cap:    '<path d="M22 58 Q22 26 50 26 Q78 26 78 58 Z"/><path d="M50 58 L96 58 Q94 68 78 66 L50 62 Z" opacity=".8"/>',
+  socks:  '<path d="M38 8 L58 8 L58 54 L80 70 Q88 78 80 86 Q72 92 62 86 L38 68 Z"/>',
+  jacket: '<path d="M32 10 L44 8 L50 18 L56 8 L68 10 L90 30 L82 64 L72 60 L72 92 L28 92 L28 60 L18 64 L10 30 Z"/><path d="M50 18 L50 92" stroke="rgba(0,0,0,.3)" stroke-width="2"/>'
+};
+const P = [
+  {id:1, name:"Organic Cotton Tee",    cat:"Tops",        price:28,  shape:"tee",    color:"#d98f5c", bg:"#f6e7da", sizes:["S","M","L","XL"], tag:"new"},
+  {id:2, name:"Heavyweight Pocket Tee",cat:"Tops",        price:34,  shape:"tee",    color:"#2f5d62", bg:"#dfeae9", sizes:["S","M","L","XL"]},
+  {id:3, name:"Everyday Hoodie",       cat:"Tops",        price:68,  shape:"hoodie", color:"#4a4e69", bg:"#e4e4ec", sizes:["S","M","L","XL"]},
+  {id:4, name:"Fleece Zip Hoodie",     cat:"Tops",        price:59,  was:74, shape:"hoodie", color:"#a44a3f", bg:"#f3dfdc", sizes:["M","L","XL"], tag:"sale"},
+  {id:5, name:"Relaxed Chino",         cat:"Bottoms",     price:62,  shape:"pants",  color:"#b08968", bg:"#efe5da", sizes:["30","32","34","36"]},
+  {id:6, name:"Stretch Jogger",        cat:"Bottoms",     price:48,  shape:"pants",  color:"#343a40", bg:"#e3e5e7", sizes:["S","M","L","XL"], tag:"new"},
+  {id:7, name:"Coastal Rain Jacket",   cat:"Outerwear",   price:118, shape:"jacket", color:"#e9b44c", bg:"#f8eed6", sizes:["S","M","L"]},
+  {id:8, name:"Quilted Overshirt",     cat:"Outerwear",   price:79,  was:98, shape:"jacket", color:"#55633a", bg:"#e6eadc", sizes:["M","L","XL"], tag:"sale"},
+  {id:9, name:"Washed Cotton Cap",     cat:"Accessories", price:22,  shape:"cap",    color:"#1f4e5f", bg:"#dbe7ea", sizes:["One size"]},
+  {id:10,name:"Corduroy Cap",          cat:"Accessories", price:26,  shape:"cap",    color:"#8d5524", bg:"#f0e2d3", sizes:["One size"]},
+  {id:11,name:"Crew Socks 3-Pack",     cat:"Accessories", price:16,  shape:"socks",  color:"#6d597a", bg:"#e9e3ec", sizes:["S/M","L/XL"]},
+  {id:12,name:"Merino Hiking Socks",   cat:"Accessories", price:19,  shape:"socks",  color:"#bc4749", bg:"#f5dfdf", sizes:["S/M","L/XL"]}
+];
+const FREE_SHIP = 75, SHIP = 6.5, CODES = {WELCOME10: .10};
+const $ = id => document.getElementById(id), money = n => "$" + n.toFixed(2);
+const art = p => `<svg viewBox="0 0 100 100" fill="${p.color}" aria-hidden="true">${SHAPES[p.shape]}</svg>`;
+let filter = "All", cart = [], picked = {}, discount = 0;
+
+// ----- catalogue -----
+["All", ...new Set(P.map(p => p.cat))].forEach(c => {
+  const b = document.createElement("button");
+  b.className = "chip"; b.textContent = c; b.setAttribute("aria-pressed", c === "All");
+  b.onclick = () => { filter = c; [...$("chips").children].forEach(x => x.setAttribute("aria-pressed", x === b)); render(); };
+  $("chips").appendChild(b);
+});
+$("sort").onchange = render;
+
+function render(){
+  let list = P.filter(p => filter === "All" || p.cat === filter);
+  const s = $("sort").value;
+  if (s === "low") list.sort((a, b) => a.price - b.price);
+  if (s === "high") list.sort((a, b) => b.price - a.price);
+  if (s === "name") list.sort((a, b) => a.name.localeCompare(b.name));
+  $("grid").innerHTML = list.map(p => {
+    if (p.sizes.length === 1) picked[p.id] = p.sizes[0];
+    return `<article class="card">
+      <div class="art" style="background:${p.bg}">${p.tag ? `<span class="flag ${p.tag}">${p.tag === "sale" ? "Sale" : "New"}</span>` : ""}${art(p)}</div>
+      <div class="info">
+        <div><h3>${p.name}</h3><div class="meta">${p.cat}</div></div>
+        <div class="price"><b>${money(p.price)}</b>${p.was ? `<s>${money(p.was)}</s>` : ""}</div>
+        <div class="sizes" role="group" aria-label="Size">${p.sizes.map(z => `<button class="size" data-id="${p.id}" data-size="${z}" aria-pressed="${picked[p.id] === z}">${z}</button>`).join("")}</div>
+        <div class="hint" id="hint${p.id}"></div>
+        <button class="add" data-add="${p.id}">Add to cart</button>
+      </div></article>`;
+  }).join("");
+}
+$("grid").addEventListener("click", e => {
+  const t = e.target;
+  if (t.dataset.size){
+    picked[t.dataset.id] = t.dataset.size;
+    t.parentElement.querySelectorAll(".size").forEach(b => b.setAttribute("aria-pressed", b === t));
+    $("hint" + t.dataset.id).textContent = "";
+  }
+  if (t.dataset.add){
+    const id = +t.dataset.add, size = picked[id];
+    if (!size){ $("hint" + id).textContent = "Pick a size first"; return; }
+    const line = cart.find(l => l.id === id && l.size === size);
+    line ? line.qty++ : cart.push({id, size, qty: 1});
+    toast(`${P.find(p => p.id === id).name} (${size}) added`);
+    drawCart();
+  }
+});
+
+// ----- cart -----
+function drawCart(){
+  const sub = cart.reduce((s, l) => s + l.qty * P.find(p => p.id === l.id).price, 0);
+  const disc = sub * discount, after = sub - disc;
+  const ship = cart.length === 0 || after >= FREE_SHIP ? 0 : SHIP;
+  $("count").textContent = cart.reduce((s, l) => s + l.qty, 0);
+  $("lines").innerHTML = cart.length ? cart.map((l, i) => { const p = P.find(x => x.id === l.id); return `
+    <div class="line"><div class="thumb" style="background:${p.bg}">${art(p)}</div>
+      <div><strong>${p.name}</strong><div class="meta">Size ${l.size} &middot; ${money(p.price)}</div>
+        <span class="qty"><button data-dec="${i}" aria-label="Decrease quantity">&minus;</button><span>${l.qty}</span><button data-inc="${i}" aria-label="Increase quantity">+</button></span>
+        <button class="rm" data-rm="${i}">Remove</button></div>
+      <strong>${money(l.qty * p.price)}</strong></div>`; }).join("") : '<div class="empty">Your cart is empty.</div>';
+  $("sub").textContent = money(sub);
+  $("discRow").hidden = !disc; $("disc").textContent = "-" + money(disc);
+  $("shipCost").textContent = cart.length ? (ship ? money(ship) : "Free") : "-";
+  $("total").textContent = money(after + ship);
+  const left = FREE_SHIP - after;
+  $("shipMsg").textContent = !cart.length ? `Free shipping over ${money(FREE_SHIP)}` : left > 0 ? `${money(left)} away from free shipping` : "You've unlocked free shipping";
+  $("fill").style.width = Math.min(100, after / FREE_SHIP * 100) + "%";
+  $("coMsg").textContent = "";
+}
+$("lines").addEventListener("click", e => {
+  const d = e.target.dataset;
+  if (d.inc) cart[d.inc].qty++;
+  if (d.dec && --cart[d.dec].qty === 0) cart.splice(d.dec, 1);
+  if (d.rm) cart.splice(d.rm, 1);
+  if (d.inc || d.dec || d.rm) drawCart();
+});
+$("apply").onclick = () => {
+  const c = $("code").value.trim().toUpperCase();
+  discount = CODES[c] || 0;
+  $("promoMsg").textContent = !c ? "" : discount ? `${c} applied: ${discount * 100}% off` : "That code isn't valid";
+  drawCart();
+};
+$("checkout").onclick = () => $("coMsg").textContent = cart.length ? "Demo store: this is where the payment step (Stripe, PayPal, Shopify) connects." : "Add something to your cart first.";
+const setOpen = v => $("cartRoot").classList.toggle("open", v);
+$("openCart").onclick = () => setOpen(true); $("closeCart").onclick = $("scrim").onclick = () => setOpen(false);
+document.addEventListener("keydown", e => e.key === "Escape" && setOpen(false));
+let tt; function toast(m){ const t = $("toast"); t.textContent = m; t.classList.add("show"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("show"), 1800); }
+render(); drawCart();
+</script>
+</body>
+</html>

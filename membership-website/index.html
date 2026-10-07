@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverbend Community Garden | Become a member</title>
+<meta name="description" content="Riverbend Community Garden is a volunteer-run non-profit. Join as a member, grow your own food and help keep the garden open to everyone.">
+<!-- Sample project: fictional non-profit, built as a portfolio demo -->
+<style>
+  :root{--ink:#1f2a24;--bg:#f6f8f3;--card:#fff;--green:#2f6b4f;--leaf:#8fbf6a;--sun:#f2b544;--line:#dfe6da;--muted:#5f6b63;--r:16px;
+        --sans:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--serif:Georgia,"Times New Roman",serif}
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6}
+  h1,h2,h3{font-family:var(--serif);line-height:1.15;margin:0}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+  header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  .nav{display:flex;justify-content:space-between;align-items:center;height:64px;gap:10px}
+  .brand{font-family:var(--serif);font-weight:700;font-size:1.15rem;display:flex;gap:8px;align-items:center}
+  .dot{width:26px;height:26px;border-radius:50% 50% 50% 0;background:var(--leaf);transform:rotate(-45deg);flex:none}
+  .nav nav{display:flex;gap:22px;align-items:center}
+  .nav a{text-decoration:none;color:inherit;font-size:.95rem}
+  .btn{background:var(--green);color:#fff!important;border:0;border-radius:999px;padding:11px 22px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}
+  .btn:hover{background:#25563f}
+  .btn.alt{background:#fff;color:var(--green)!important;border:1.5px solid var(--green)}
+  .hero{background:linear-gradient(180deg,#e4efd9,var(--bg));padding:72px 0 56px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(2.1rem,5.5vw,3.5rem);margin-bottom:16px}
+  .hero p{font-size:1.1rem;color:var(--muted);max-width:48ch;margin:0 0 24px}
+  .scene{aspect-ratio:1/1;border-radius:var(--r);background:linear-gradient(#bfe3f2 0 55%,#8fbf6a 55% 100%);position:relative;overflow:hidden}
+  .scene:before{content:"";position:absolute;width:22%;aspect-ratio:1;border-radius:50%;background:var(--sun);top:10%;right:12%}
+  .bed{position:absolute;bottom:10%;height:16%;background:#7a5234;border-radius:8px;left:8%;right:8%}
+  .bed.b2{bottom:32%;left:20%;right:20%;height:11%}
+  .sprout{position:absolute;bottom:26%;width:5%;aspect-ratio:1;background:#2f6b4f;border-radius:50% 50% 50% 0;transform:rotate(-45deg)}
+  section{padding:68px 0}
+  .head{text-align:center;max-width:56ch;margin:0 auto 36px}
+  .head h2{font-size:clamp(1.7rem,4vw,2.4rem)} .head p{color:var(--muted);margin:10px 0 0}
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+  .num{width:36px;height:36px;border-radius:50%;background:#e4efd9;color:var(--green);font-weight:700;display:grid;place-items:center;margin-bottom:12px}
+  .step p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
+  .toggle{display:flex;justify-content:center;gap:4px;background:#e4eadd;border-radius:999px;padding:4px;width:max-content;margin:0 auto 28px}
+  .toggle button{border:0;background:none;font:inherit;padding:8px 20px;border-radius:999px;cursor:pointer;color:var(--ink)}
+  .toggle button[aria-pressed="true"]{background:#fff;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .tier{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:26px;display:flex;flex-direction:column}
+  .tier.pop{border-color:var(--green);position:relative}
+  .tier.pop:before{content:"Recommended";position:absolute;top:-12px;left:22px;background:var(--green);color:#fff;font-size:.72rem;font-weight:700;border-radius:999px;padding:3px 12px}
+  .amt{font-family:var(--serif);font-size:2.3rem;font-weight:700;margin:8px 0 2px}
+  .per{color:var(--muted);font-size:.88rem}
+  .tier ul{list-style:none;padding:0;margin:16px 0 22px;flex:1}
+  .tier li{padding:6px 0 6px 26px;position:relative;font-size:.95rem}
+  .tier li:before{content:"";position:absolute;left:2px;top:13px;width:12px;height:6px;border-left:2.5px solid var(--green);border-bottom:2.5px solid var(--green);transform:rotate(-45deg)}
+  #join{background:var(--green);color:#fff}
+  #join .head p{color:#d6e8dc}
+  form{background:var(--card);color:var(--ink);border-radius:var(--r);padding:28px;max-width:640px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .full{grid-column:1/-1}
+  label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px}
+  input,select{width:100%;font:inherit;padding:11px 12px;border:1px solid #c9d3c4;border-radius:8px;background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:2px solid var(--green);outline-offset:1px}
+  .err{color:#b3261e;font-size:.8rem;min-height:1.1em;margin-top:4px}
+  .invalid{border-color:#b3261e}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:.9rem}
+  .check input{width:auto;margin-top:4px}
+  .summary{background:#eef4e8;border-radius:10px;padding:12px 14px;font-size:.95rem;display:flex;justify-content:space-between}
+  .done{display:none;background:var(--card);color:var(--ink);border-radius:var(--r);padding:32px;max-width:640px;margin:0 auto;text-align:center}
+  .faq{max-width:720px;margin:0 auto}
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:10px}
+  summary{cursor:pointer;font-weight:600}
+  details p{margin:10px 0 0;color:var(--muted)}
+  footer{padding:30px 0;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media (max-width:800px){.hero-grid,.how,.tiers{grid-template-columns:1fr}.scene{max-width:340px}.nav nav a:not(.btn){display:none}section{padding:50px 0}}
+  @media (max-width:520px){form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <div class="brand"><span class="dot"></span>Riverbend Community Garden</div>
+  <nav><a href="#how">How it works</a><a href="#tiers">Membership</a><a href="#faq">FAQ</a><a class="btn" href="#join">Join</a></nav>
+</div></header>
+
+<div class="hero"><div class="wrap hero-grid">
+  <div>
+    <h1>A garden that belongs to the whole neighbourhood.</h1>
+    <p>Riverbend is run by volunteers and paid for by members. Your membership keeps the gates open, the tools sharp and the beds planted.</p>
+    <a class="btn" href="#join">Become a member</a> &nbsp;<a class="btn alt" href="#tiers">See membership options</a>
+  </div>
+  <div class="scene" role="img" aria-label="Illustration of garden beds under a sunny sky">
+    <div class="bed b2"></div><div class="bed"></div>
+    <span class="sprout" style="left:18%"></span><span class="sprout" style="left:34%"></span><span class="sprout" style="left:50%"></span><span class="sprout" style="left:66%"></span><span class="sprout" style="left:80%"></span>
+  </div>
+</div></div>
+
+<section id="how"><div class="wrap">
+  <div class="head"><h2>How membership works</h2></div>
+  <div class="how">
+    <div class="step"><div class="num">1</div><h3>Pick a level</h3><p>Three options, monthly or yearly. Change or cancel whenever you like.</p></div>
+    <div class="step"><div class="num">2</div><h3>Get your welcome pack</h3><p>Gate code, tool shed guide and the planting calendar land in your inbox.</p></div>
+    <div class="step"><div class="num">3</div><h3>Come and dig</h3><p>Open days are Wednesdays and Saturdays. No experience needed.</p></div>
+  </div>
+</div></section>
+
+<section id="tiers" style="background:#eef3e8"><div class="wrap">
+  <div class="head"><h2>Choose your membership</h2><p>Pay yearly and get two months free.</p></div>
+  <div class="toggle" role="group" aria-label="Billing period">
+    <button id="mBtn" aria-pressed="true">Monthly</button><button id="yBtn" aria-pressed="false">Yearly</button>
+  </div>
+  <div class="tiers" id="tierCards"></div>
+</div></section>
+
+<section id="join"><div class="wrap">
+  <div class="head"><h2>Join Riverbend</h2><p>Takes about a minute. You'll get a confirmation email with your next steps.</p></div>
+  <form id="joinForm" novalidate>
+    <div><label for="first">First name</label><input id="first" autocomplete="given-name"><div class="err"></div></div>
+    <div><label for="last">Last name</label><input id="last" autocomplete="family-name"><div class="err"></div></div>
+    <div class="full"><label for="email">Email</label><input id="email" type="email" autocomplete="email"><div class="err"></div></div>
+    <div><label for="level">Membership level</label><select id="level"></select><div class="err"></div></div>
+    <div><label for="period">Billing</label><select id="period"><option value="m">Monthly</option><option value="y">Yearly (2 months free)</option></select><div class="err"></div></div>
+    <div class="full summary"><span id="sumText"></span><strong id="sumAmt"></strong></div>
+    <div class="full"><label class="check"><input type="checkbox" id="news"> Send me the monthly garden newsletter</label></div>
+    <div class="full"><label class="check"><input type="checkbox" id="agree"> I agree to the garden rules and membership terms</label><div class="err" id="agreeErr"></div></div>
+    <div class="full"><button class="btn" style="width:100%" type="submit">Continue to payment</button></div>
+  </form>
+  <div class="done" id="done" role="status" aria-live="polite"></div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="head"><h2>Questions people ask</h2></div>
+  <div class="faq">
+    <details><summary>Can I cancel?</summary><p>Yes, any time from your member page. Monthly memberships stop at the end of the month. Yearly memberships run to the end of the paid year.</p></details>
+    <details><summary>Do I need gardening experience?</summary><p>No. Volunteers run a short induction on every open day and tools are provided.</p></details>
+    <details><summary>Where does the money go?</summary><p>Water, seeds, compost, tool repairs and insurance. The annual accounts are published to members.</p></details>
+    <details><summary>Can my family use my membership?</summary><p>Household membership covers everyone at one address. Individual membership is for one adult, and children are always welcome with a member.</p></details>
+  </div>
+</div></section>
+
+<footer><div class="wrap"><span>&copy; 2026 Riverbend Community Garden (fictional non-profit)</span><span>Demo website by Prosync Solutions</span></div></footer>
+
+<script>
+const TIERS = [
+  {id:"friend",    name:"Friend",     m:5,  perks:["Open-day access", "Monthly newsletter", "Vote at the annual meeting"]},
+  {id:"grower",    name:"Grower",     m:12, pop:true, perks:["Everything in Friend", "Share of the weekly harvest", "Free seasonal workshops", "Tool shed access"]},
+  {id:"household", name:"Household",  m:20, perks:["Everything in Grower", "Covers everyone at one address", "Your own raised bed (when available)", "Two guest passes a month"]}
+];
+const $ = id => document.getElementById(id);
+const yearly = t => t.m * 10;                       // 12 months for the price of 10
+let period = "m";
+
+function drawTiers(){
+  $("tierCards").innerHTML = TIERS.map(t => `
+    <div class="tier ${t.pop ? "pop" : ""}"><h3>${t.name}</h3>
+      <div class="amt">$${period === "m" ? t.m : yearly(t)}</div><div class="per">per ${period === "m" ? "month" : "year"}${period === "y" ? ` (save $${t.m * 2})` : ""}</div>
+      <ul>${t.perks.map(p => `<li>${p}</li>`).join("")}</ul>
+      <a class="btn ${t.pop ? "" : "alt"}" href="#join" data-pick="${t.id}">Choose ${t.name}</a></div>`).join("");
+}
+function setPeriod(p){
+  period = p; $("mBtn").setAttribute("aria-pressed", p === "m"); $("yBtn").setAttribute("aria-pressed", p === "y");
+  $("period").value = p; drawTiers(); drawSummary();
+}
+function drawSummary(){
+  const t = TIERS.find(x => x.id === $("level").value), y = $("period").value === "y";
+  $("sumText").textContent = `${t.name} membership, billed ${y ? "yearly" : "monthly"}`;
+  $("sumAmt").textContent = `$${y ? yearly(t) : t.m} / ${y ? "year" : "month"}`;
+}
+TIERS.forEach(t => $("level").add(new Option(t.name, t.id, t.pop, t.pop)));
+$("mBtn").onclick = () => setPeriod("m"); $("yBtn").onclick = () => setPeriod("y");
+$("period").onchange = e => setPeriod(e.target.value);
+$("level").onchange = drawSummary;
+$("tierCards").addEventListener("click", e => { if (e.target.dataset.pick){ $("level").value = e.target.dataset.pick; drawSummary(); } });
+
+const RULES = {
+  first: v => v.trim().length > 0 || "Enter your first name",
+  last:  v => v.trim().length > 0 || "Enter your last name",
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || "Enter a valid email address"
+};
+function check(id){
+  const el = $(id), res = RULES[id](el.value);
+  el.classList.toggle("invalid", res !== true); el.parentElement.querySelector(".err").textContent = res === true ? "" : res;
+  return res === true;
+}
+Object.keys(RULES).forEach(id => $(id).addEventListener("blur", () => check(id)));
+$("joinForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const ok = Object.keys(RULES).map(check).every(Boolean), agreed = $("agree").checked;
+  $("agreeErr").textContent = agreed ? "" : "Please accept the terms to continue";
+  if (!ok || !agreed){ (document.querySelector(".invalid") || $("agree")).focus(); return; }
+  const name = document.createElement("span"); name.textContent = $("first").value.trim();
+  $("done").innerHTML = `<h2 style="margin-bottom:10px">Welcome, ${name.innerHTML}.</h2>
+    <p>You chose <strong>${$("sumText").textContent}</strong> at <strong>${$("sumAmt").textContent}</strong>.</p>
+    <p style="color:#5f6b63;font-size:.9rem">Demo only: on a live site this step hands over to the payment provider and creates the member account.</p>`;
+  $("joinForm").style.display = "none"; $("done").style.display = "block";
+});
+setPeriod("m");
+</script>
+</body>
+</html>

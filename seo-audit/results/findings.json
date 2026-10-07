@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "start": "http://localhost:8766/",
+    "urls_checked": 11,
+    "html_pages": 9,
+    "sitemap_urls": 9,
+    "issue_types": 19,
+    "issue_instances": 32
+  },
+  "findings": {
+    "blocked_by_robots_txt": [
+      {
+        "url": "http://localhost:8766/blog/"
+      },
+      {
+        "url": "http://localhost:8766/blog/desk-stretches.html"
+      }
+    ],
+    "broken_internal_url": [
+      {
+        "url": "http://localhost:8766/team.html",
+        "status": 404,
+        "linked_from": [
+          "http://localhost:8766/about.html"
+        ]
+      },
+      {
+        "url": "http://localhost:8766/old-offers.html",
+        "status": 404,
+        "linked_from": []
+      }
+    ],
+    "title_too_long": [
+      {
+        "url": "http://localhost:8766/",
+        "length": 95,
+        "title": "Brightwater Physio | Physiotherapy, Sports Massage and Rehab Clinic in Bristol, UK - Book Today"
+      },
+      {
+        "url": "http://localhost:8766/back-pain.html",
+        "length": 61,
+        "title": "Lower Back Pain Physiotherapy in Bristol | Brightwater Physio"
+      },
+      {
+        "url": "http://localhost:8766/contact.html",
+        "length": 61,
+        "title": "Contact Brightwater Physio | Book a Physiotherapy Appointment"
+      }
+    ],
+    "missing_meta_description": [
+      {
+        "url": "http://localhost:8766/"
+      },
+      {
+        "url": "http://localhost:8766/sports-injury.html"
+      }
+    ],
+    "multiple_h1": [
+      {
+        "url": "http://localhost:8766/",
+        "h1": [
+          "Physiotherapy in Bristol",
+          "Welcome to Brightwater"
+        ]
+      }
+    ],
+    "thin_content": [
+      {
+        "url": "http://localhost:8766/",
+        "words": 184
+      },
+      {
+        "url": "http://localhost:8766/services.html",
+        "words": 209
+      },
+      {
+        "url": "http://localhost:8766/back-pain.html",
+        "words": 266
+      },
+      {
+        "url": "http://localhost:8766/sports-injury.html",
+        "words": 67
+      },
+      {
+        "url": "http://localhost:8766/about.html",
+        "words": 171
+      },
+      {
+        "url": "http://localhost:8766/blog/",
+        "words": 39
+      },
+      {
+        "url": "http://localhost:8766/contact.html",
+        "words": 84
+      },
+      {
+        "url": "http://localhost:8766/pricing.html",
+        "words": 120
+      }
+    ],
+    "image_missing_alt": [
+      {
+        "url": "http://localhost:8766/",
+        "image": "http://localhost:8766/img/clinic-hero.png"
+      },
+      {
+        "url": "http://localhost:8766/about.html",
+        "image": "http://localhost:8766/img/team.jpg"
+      }
+    ],
+    "heavy_image": [
+      {
+        "url": "http://localhost:8766/",
+        "image": "http://localhost:8766/img/clinic-hero.png",
+        "kb": 1820
+      }
+    ],
+    "canonical_points_elsewhere": [
+      {
+        "url": "http://localhost:8766/services.html",
+        "canonical": "http://localhost:8766/"
+      }
+    ],
+    "broken_image": [
+      {
+        "url": "http://localhost:8766/sports-injury.html",
+        "image": "http://localhost:8766/img/knee-taping.jpg",
+        "status": 404
+      }
+    ],
+    "missing_h1": [
+      {
+        "url": "http://localhost:8766/contact.html"
+      }
+    ],
+    "missing_viewport": [
+      {
+        "url": "http://localhost:8766/contact.html"
+      }
+    ],
+    "missing_lang": [
+      {
+        "url": "http://localhost:8766/contact.html"
+      }
+    ],
+    "noindex_page_in_sitemap": [
+      {
+        "url": "http://localhost:8766/pricing.html"
+      }
+    ],
+    "orphan_page": [
+      {
+        "url": "http://localhost:8766/pricing.html",
+        "note": "in sitemap but no internal links point to it"
+      }
+    ],
+    "duplicate_title": [
+      {
+        "title": "Brightwater Physio",
+        "urls": [
+          "http://localhost:8766/services.html",
+          "http://localhost:8766/about.html"
+        ]
+      }
+    ],
+    "duplicate_meta_description": [
+      {
+        "description": "Brightwater Physio is a friendly physiotherapy clinic in Bristol offering treatm\u2026",
+        "urls": [
+          "http://localhost:8766/services.html",
+          "http://localhost:8766/about.html"
+        ]
+      }
+    ],
+    "sitemap_lists_broken_url": [
+      {
+        "url": "http://localhost:8766/old-offers.html",
+        "status": 404
+      }
+    ],
+    "indexable_page_missing_from_sitemap": [
+      {
+        "url": "http://localhost:8766/blog/desk-stretches.html"
+      }
+    ]
+  }
+}

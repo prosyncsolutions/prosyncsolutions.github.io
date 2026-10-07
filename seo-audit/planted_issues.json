@@ -1,0 +1,65 @@
+{
+  "title_too_long": [
+    "/"
+  ],
+  "missing_meta_description": [
+    "/",
+    "/sports-injury.html"
+  ],
+  "multiple_h1": [
+    "/"
+  ],
+  "heavy_image": [
+    "/"
+  ],
+  "image_missing_alt": [
+    "/",
+    "/about.html"
+  ],
+  "duplicate_title": [
+    "/services.html",
+    "/about.html"
+  ],
+  "duplicate_meta_description": [
+    "/services.html",
+    "/about.html"
+  ],
+  "canonical_points_elsewhere": [
+    "/services.html"
+  ],
+  "thin_content": [
+    "/sports-injury.html"
+  ],
+  "broken_image": [
+    "/sports-injury.html"
+  ],
+  "broken_internal_url": [
+    "/team.html",
+    "/old-offers.html"
+  ],
+  "missing_h1": [
+    "/contact.html"
+  ],
+  "missing_viewport": [
+    "/contact.html"
+  ],
+  "missing_lang": [
+    "/contact.html"
+  ],
+  "blocked_by_robots_txt": [
+    "/blog/desk-stretches.html",
+    "/blog/"
+  ],
+  "indexable_page_missing_from_sitemap": [
+    "/blog/desk-stretches.html"
+  ],
+  "orphan_page": [
+    "/pricing.html"
+  ],
+  "noindex_page_in_sitemap": [
+    "/pricing.html"
+  ],
+  "sitemap_lists_broken_url": [
+    "/old-offers.html"
+  ]
+}

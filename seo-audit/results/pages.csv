@@ -1,0 +1,12 @@
+url,status,title,title_len,meta_description_len,h1_count,words,canonical,robots_meta,inlinks,seconds
+http://localhost:8766/,200,"Brightwater Physio | Physiotherapy, Sports Massage and Rehab Clinic in Bristol, UK - Book Today",95,0,2,184,/,,8,2.038
+http://localhost:8766/about.html,200,Brightwater Physio,18,106,1,171,/about.html,,8,2.027
+http://localhost:8766/back-pain.html,200,Lower Back Pain Physiotherapy in Bristol | Brightwater Physio,61,127,1,266,/back-pain.html,,8,2.031
+http://localhost:8766/blog/,200,Physiotherapy Tips and Advice | Brightwater Physio Blog,55,118,1,39,/blog/,,8,2.04
+http://localhost:8766/blog/desk-stretches.html,200,5 Desk Stretches for Office Workers | Brightwater Physio,56,123,1,302,/blog/desk-stretches.html,,1,2.031
+http://localhost:8766/contact.html,200,Contact Brightwater Physio | Book a Physiotherapy Appointment,61,121,0,84,/contact.html,,8,2.039
+http://localhost:8766/old-offers.html,404,,0,0,0,,,,0,2.03
+http://localhost:8766/pricing.html,200,Physiotherapy Prices | Brightwater Physio,41,127,1,120,/pricing.html,noindex,0,2.028
+http://localhost:8766/services.html,200,Brightwater Physio,18,106,1,209,/,,8,2.031
+http://localhost:8766/sports-injury.html,200,Sports Injury Clinic Bristol | Brightwater Physio,49,0,1,67,/sports-injury.html,,8,2.034
+http://localhost:8766/team.html,404,,0,0,0,,,,1,2.024
